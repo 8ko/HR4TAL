@@ -42,7 +42,7 @@ class AccountController extends Controller
         $user->employee_id = $request->employee_id;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->email = $request->employee_id . '@roc.ph';
+        $user->email = $request->email . '@roc.ph';
         $user->password = Hash::make($request->password);
         $user->save();
         $user->attachRole($request->user_level);

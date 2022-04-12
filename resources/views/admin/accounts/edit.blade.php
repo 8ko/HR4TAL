@@ -4,28 +4,29 @@
     <div class="col-md-5">
     @include('layouts.flash-messages')
         <div class="card">
-            <div class="card-header text-primary m-0 fw-bold">{{ __('Account Creation') }}</div>
+            <div class="card-header text-primary m-0 fw-bold">{{ __('Account Update') }}</div>
 
             <div class="card-body d-flex justify-content-center">
-                <form method="POST" action="{{ route('admin.accounts.store') }}">
-                    @csrf
-
+            
+                    {{ Form::model($user,['admin.accounts.update','id'=>'frm_update']) }}
+                    {{ csrf_field() }}
+                    {{ method_field('PATCH') }}
+                    <div class="my-3 pb-3 d-flex justify-content-center">
+                            <img class="rounded-circle" src="{{$user->avatar()}}" width="100" height="100" />
+                    </div>
                     <div class="row my-3">
                         <label for="user_level" class="col-md-4 col-form-label text-md-end">{{ __('User Level') }}</label>
 
                         <div class="col-md-6">
-                        <select class="custom-select-lg form-select @error('employee_id') is-invalid @enderror" id="user_level" name="user_level" value="{{ old('user_level') }}" required autocomplete="user_levelssssss" autofocus>
-                            <option value="admin">Administrator</option>
-                            <option value="engr">Engineer</option>
-                            <option value="hr">Human Resource</option>
-                            <option selected value="user">Employee</option>
-                        </select>
-
-                            @error('user_level')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            {{
+                                Form::select('user_level',array(
+                                    'admin'     => 'Administrator',
+                                    'engr'      => 'Engineer',
+                                    'hr'        => 'Human Resource',
+                                    'user'      => 'Employee',
+                                    ),
+                                    null,['class' => 'form-select rounded-1','id'=>'user_level','required'])
+                            }}
                         </div>
                     </div>
 
@@ -33,8 +34,7 @@
                         <label for="employee_id" class="col-md-4 col-form-label text-md-end">{{ __('Employee ID') }}</label>
 
                         <div class="col-md-6">
-                            <input id="employee_id" type="number" class="form-control @error('employee_id') is-invalid @enderror" name="employee_id" value="{{ old('employee_id') }}" required autocomplete="employee_id" autofocus>
-
+                            {{ Form::text('employee_id',null,['class'=>'form-control','id'=>'employee_id','readonly']) }}
                             @error('employee_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -47,7 +47,7 @@
                         <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
 
                         <div class="col-md-6">
-                            <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
+                            {{ Form::text('first_name',null,['class'=>'form-control','id'=>'first_name','required']) }}
 
                             @error('first_name')
                                 <span class="invalid-feedback" role="alert">
@@ -61,8 +61,7 @@
                         <label for="last_name" class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
 
                         <div class="col-md-6">
-                            <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
-
+                            {{ Form::text('last_name',null,['class'=>'form-control','id'=>'last_name','required']) }}
                             @error('last_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -74,9 +73,9 @@
                     <div class="row mb-3">
                         <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
                         <div class="col-md-6">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <input data-toggle="tooltip" data-placement="top" data-html="true" title="Copied!"
-                                    id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ str_replace('@roc.ph','',$user->email) }}" required autocomplete="email">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="domain"
                                     style="border-top-left-radius: 0rem; border-bottom-left-radius: 0rem;">
@@ -95,25 +94,19 @@
 
                         <div class="col-md-6">
                             <div class="input-group mb-3">
-                            <input data-toggle="tooltip" data-placement="top" data-html="true" title="Copied!"
-                                id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                            {{ Form::text('password',null,['class'=>'form-control','id'=>'password', 'data-toggle'=>'tooltip','data-placement'=>'top','title'=>'Copied!','required']) }}
                             <button id="generate" type="button" class="btn btn-outline-success">Generate</button>
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="d-flex justify-content-center my-2">
                             <button type="submit" class="btn btn-primary ">
-                                {{ __('Create Account') }}
+                                {{ __('Update Account') }}
                             </button>
                         </div>
                     </div>
-                </form>
+                {{ Form::close() }}
             </div>
         </div>
     </div>
