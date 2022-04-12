@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']], function() {
     Route::get('timeout', [LogController::class, 'timeout'])->name('admin.timeout');
 
     Route::get('accounts', [AccountController::class, 'accounts'])->name('admin.accounts');
+    Route::get('create', [AccountController::class, 'create'])->name('admin.create');
     
     Route::get('{employee_id}', [AccountController::class, 'index'])->name('admin.profile');
     Route::patch('{employee_id}', [AccountController::class, 'update'])->name('admin.profile.update');

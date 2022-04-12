@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use App\Models\User;
 use App\Models\EmployeeType;
@@ -63,6 +64,18 @@ class AccountController extends Controller
         return redirect()->back()->with('success','Changes saved.');
     }
 
+    public function register(Request $request){
+        $user = new User;
+        $user->employee_id = $request->employee_id;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->employee_id . '@roc.ph';
+        $user->password = Hash::make($request->password);
+        $user->save();
+        $user->attachRole('user');
+        return redirect()->back()->with('success','Account created.');
+    }
+
     public function storeMedia(Request $request){
         $path = storage_path('tmp/uploads');
         if(!file_exists($path)){
@@ -111,5 +124,9 @@ class AccountController extends Controller
 
     public function accounts() {
         return view('admin.accounts');
+    }
+
+    public function create() {
+        return view('admin.create');
     }
 }
