@@ -2,11 +2,12 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-5">
+    @include('layouts.flash-messages')
         <div class="card">
             <div class="card-header text-primary m-0 fw-bold">{{ __('Account Creation') }}</div>
 
             <div class="card-body d-flex justify-content-center">
-                <form method="POST" action="{{ route('admin.create') }}">
+                <form method="POST" action="{{ route('admin.accounts.store') }}">
                     @csrf
 
                     <div class="row my-3">

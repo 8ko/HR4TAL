@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AccountController extends Controller
 {
@@ -41,7 +43,7 @@ class AccountController extends Controller
         $user->email = $request->employee_id . '@roc.ph';
         $user->password = Hash::make($request->password);
         $user->save();
-        $user->attachRole($request->role);
+        $user->attachRole($request->user_level);
         return redirect()->back()->with('success','Account created.');
     }
 
