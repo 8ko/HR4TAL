@@ -21,23 +21,34 @@ button.close {
 }
 
 .tooltip-inner {
-    background-color: #1cc88a;
+    background-color: #28a745;
     opacity: 1 !important;
     font-weight: 600;
 }
 .tooltip.bs-tooltip-right .tooltip-arrow::before {
-    border-right-color: #1cc88a !important;
+    border-right-color: #28a745 !important;
 }
 .tooltip.bs-tooltip-left .tooltip-arrow::before {
-    border-left-color: #1cc88a !important;
+    border-left-color: #28a745 !important;
 }
 .tooltip.bs-tooltip-bottom .tooltip-arrow::before {
-    border-bottom-color: #1cc88a !important;
+    border-bottom-color: #28a745 !important;
 }
 .tooltip.bs-tooltip-top .tooltip-arrow::before {
-    border-top-color: #1cc88a !important;
+    border-top-color: #28a745 !important;
 }
 
 .btn-outline-success:hover{
     color: #fff;
+}
+
+.btn-outline-success{
+    color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.btn-outline-success:hover{
+    color: #fff !important;
+    border-color: #28a745 !important;
+    background-color: #28a745 !important;
 }
