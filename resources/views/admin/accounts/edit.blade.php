@@ -8,7 +8,7 @@
 
             <div class="card-body d-flex justify-content-center">
             
-                    {{ Form::model($user,['admin.accounts.update','id'=>'frm_update']) }}
+                    {{ Form::model($user,['route' => ['admin.accounts.update',$user->employee_id]]) }}
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
                     <div class="my-3 pb-3 d-flex justify-content-center">
@@ -19,13 +19,13 @@
 
                         <div class="col-md-6">
                             {{
-                                Form::select('user_level',array(
+                                Form::select('role_name',array(
                                     'admin'     => 'Administrator',
                                     'engr'      => 'Engineer',
                                     'hr'        => 'Human Resource',
                                     'user'      => 'Employee',
                                     ),
-                                    null,['class' => 'form-select rounded-1','id'=>'user_level','required'])
+                                    null,['class' => 'form-select rounded-1','id'=>'role_name','required'])
                             }}
                         </div>
                     </div>
@@ -94,7 +94,8 @@
 
                         <div class="col-md-6">
                             <div class="input-group mb-3">
-                            {{ Form::text('password',null,['class'=>'form-control','id'=>'password', 'data-toggle'=>'tooltip','data-placement'=>'top','title'=>'Copied!','required']) }}
+                            <input data-toggle="tooltip" data-placement="top" data-html="true" title="Copied!"
+                                id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required>
                             <button id="generate" type="button" class="btn btn-outline-success">Generate</button>
                         </div>
                     </div>
@@ -117,7 +118,6 @@
 <script>
     $( document ).ready(function() {
         $( "#generate" ).click(function() {
-            // console.log("puwit");
             var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var passwordLength = 12;
             var password = "";
