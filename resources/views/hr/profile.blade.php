@@ -10,7 +10,7 @@
             <div class="d-flex flex-column align-items-center mb-4">
                 <h4 class="text-primary fw-bold mb-0 mt-2">{{ $user->first_name }} {{ $user->last_name }}</h4>
                 <h6 class="p-0"><small>{{ auth()->user()->department ? $departments[auth()->user()->department] : '' }}</small></h6>
-                <form method="post" id="form-avatar" enctype="multipart/form-data" action="{{ route('hr.profile.avatar', $user->employee_id) }}"> 
+                <form method="post" id="form-avatar" enctype="multipart/form-data" action="{{ route('hr.profile.avatar.upload', $user->employee_id) }}"> 
                 {{ csrf_field() }} 
                 
                 <div class="btn btn-sm btn-outline-primary position-relative overflow-hidden">
@@ -31,7 +31,7 @@
     </div>
 
     <div class="card-body">
-        <form method="post" id="form-requirement" enctype="multipart/form-data" action="{{ route('hr.requirement.upload', $user->employee_id) }}"> 
+        <form method="post" id="form-requirement" enctype="multipart/form-data" action="{{ route('hr.requirement.store', $user->employee_id) }}"> 
         {{ csrf_field() }} 
             <div class="d-flex align-items-baseline justify-content-between input-group">
                 <label class="form-label py-3" for="requirements">Select requirement: </label>
@@ -137,7 +137,7 @@
         </div> 
 
         <div class="card shadow mb-3">
-            {{ Form::model($user,['route' => ['hr.comment.save',$user->employee_id]]) }}
+            {{ Form::model($user,['route' => ['hr.profile.comment.save',$user->employee_id]]) }}
             {{ csrf_field() }}
             <div class="card-header py-3 d-flex align-items-baseline justify-content-between">
                 <p class="text-primary m-0 fw-bold">Feedback</p>
