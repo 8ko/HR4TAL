@@ -75,7 +75,7 @@
                         <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
                         <div class="col-md-6">
                             <div class="input-group mb-3">
-                                <input data-toggle="tooltip" data-placement="top" data-html="true" title="Copied!"
+                                <input data-bs-toggle="tooltip" title="Copied!"
                                     id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="domain"
@@ -95,7 +95,7 @@
 
                         <div class="col-md-6">
                             <div class="input-group mb-3">
-                            <input data-toggle="tooltip" data-placement="top" data-html="true" title="Copied!"
+                            <input data-bs-toggle="tooltip" title="Copied!"
                                 id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required>
                             <button id="generate" type="button" class="btn btn-outline-success">Generate</button>
                             @error('password')
@@ -123,6 +123,15 @@
 
 <script>
     $( document ).ready(function() {
+
+        const $tooltip = $('[data-toggle="tooltip"]');
+        $tooltip.tooltip({
+        html: true,
+        trigger: 'click',
+        animation: true,
+        placement: 'top',
+        });
+
         $( "#generate" ).click(function() {
             // console.log("puwit");
             var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -135,23 +144,32 @@
             $( "#password" ).val(password);
         });
 
-        $( "#password" ).click(function() {
+        $( "#password" ).click(function(e) {
+            e.preventDefault();
             password.select();
             navigator.clipboard.writeText(password.value);
             // alert("Copied password: " + password.value);
             if($('#password').val()){
-                $('#password').tooltip('toggle')
+                $('#password').tooltip('show');
+                setTimeout(function() {
+                    $('#password').tooltip('dispose');
+                }, 1000);
             }
             
         });
 
-        $( "#email" ).click(function() {
+        $( "#email" ).click(function(e) {
+            e.preventDefault();
+            
             var org = $( "#domain").text();
             email.select();
             navigator.clipboard.writeText(email.value+org);
-            // alert("Copied password: " + password.value);
             if($('#email').val()){
-                $('#email').tooltip('toggle')
+                
+                $('#email').tooltip('show');
+                setTimeout(function() {
+                    $('#email').tooltip('dispose');
+                }, 1000);
             }
             
         });
