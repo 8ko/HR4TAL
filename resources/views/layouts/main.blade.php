@@ -9,12 +9,12 @@
         <hr class="sidebar-divider my-0">
         <ul class="navbar-nav text-light" id="accordionSidebar">
             <li class="nav-item"><a class="nav-link active" href="{{route('home')}}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="{{route(Auth::user()->roles->first()->name . '.profile',Auth::user()->employee_id)}}"><i class="fas fa-user"></i><span>Profile</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{{route(Auth::user()->roles->first()->name . '.profile.show',Auth::user()->employee_id)}}"><i class="fas fa-user"></i><span>Profile</span></a></li>
             @if (Auth::user()->hasRole(['admin','hr']))
             <li class="nav-item"><a class="nav-link" href="{{route(Auth::user()->roles->first()->name . '.logs')}}"><i class="fas fa-table"></i><span>Time Logs</span></a></li>
             @endif
             @if (Auth::user()->hasRole('admin'))
-            <li class="nav-item"><a class="nav-link" href="{{route('admin.accounts')}}"><i class="fas fa-table"></i><span>Accounts</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{{route('admin.accounts.index')}}"><i class="fas fa-table"></i><span>Accounts</span></a></li>
             @endif
             <li class="nav-item"></li>
             <li class="nav-item"></li>
@@ -44,7 +44,7 @@
                                     <span class="d-none d-lg-inline me-2 text-gray-600 small">{{ Auth::user()->employee_id }} {{ Auth::user()->first_name }}</span>
                                     <img class="border rounded-circle img-profile" src="{{Auth::user()->avatar()}}"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                                        <a class="dropdown-item" href="{{route(Auth::user()->roles->first()->name . '.profile',Auth::user()->employee_id)}}">
+                                        <a class="dropdown-item" href="{{route(Auth::user()->roles->first()->name . '.profile.show',Auth::user()->employee_id)}}">
                                         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Profile</a><a class="dropdown-item" href="#">
                                             
                                         <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#">

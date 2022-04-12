@@ -19,7 +19,7 @@
     </div>
 
     <div class="card-body">
-        <form method="post" id="form-requirement" enctype="multipart/form-data" action="{{ route('user.requirement.upload', $user->employee_id) }}"> 
+        <form method="post" id="form-requirement" enctype="multipart/form-data" action="{{ route('user.requirement.store', $user->employee_id) }}"> 
         {{ csrf_field() }} 
             <div class="d-flex align-items-baseline justify-content-between input-group">
                 <label class="form-label py-3" for="requirements">Select requirement: </label>
@@ -132,7 +132,7 @@
                     <p class="text-primary m-0 fw-bold">User Settings</p>
                 </div>
                 <div class="card-body">
-                    {{ Form::model($user,['route' => ['hr.profile.update',$user->employee_id],'id'=>'frm_profile']) }}
+                    {{ Form::model($user,['user.profile.update','id'=>'frm_profile']) }}
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
                         <div class="row mb-3">
