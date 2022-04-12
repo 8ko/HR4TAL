@@ -66,7 +66,11 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::user()->hasRole('admin')){
+            return view('admin.accounts.edit');
+        } elseif(Auth::user()->hasRole('engr')){
+            return view('engr.accounts.edit');
+        }
     }
 
     /**
@@ -78,7 +82,14 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('employee_id', $employee_id)->firstOrFail();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        $user->detachRole($user->role);
+        $user->attachRole($request->user_level);
+        return redirect()->back()->with('success','Account updated.');
     }
 
     /**
