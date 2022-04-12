@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header text-primary m-0 fw-bold">{{ __('Account Creation') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -76,7 +76,9 @@
                                 <div class="input-group mb-3">
                                     <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="domain">@roc.ph</span>
+                                        <span class="input-group-text" id="domain"
+                                        style="border-top-left-radius: 0rem; border-bottom-left-radius: 0rem;">
+                                        @roc.ph</span>
                                     </div>
                                 </div>
                                 @error('email')
@@ -86,14 +88,14 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
                                 <div class="input-group mb-3">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                <button id="generate" class="btn btn-outline-secondary">Generate</button>
+                                <input data-toggle="tooltip" data-placement="top" data-html="true" title="Copied!"
+                                    id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                                <button id="generate" type="button" class="btn btn-outline-success">Generate</button>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -104,7 +106,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary ">
                                     {{ __('Create Account') }}
                                 </button>
                             </div>
@@ -116,20 +118,30 @@
     </div>
 
 <script>
-    const display = document.querySelector("#password"),
-    button = document.querySelector("#generate"),
-    let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
-    button.onclick = ()=>{
-    let i,
-    randomPassword = "";
-    copyBtn.style.display = "block";
-    copyActive.style.display = "none";
-    for (i = 0; i < 16; i++) {
-        randomPassword = randomPassword + chars.charAt(
-        Math.floor(Math.random() * chars.length)
-        );
-    }
-    display.value = randomPassword;
-    }
+    $( document ).ready(function() {
+        $( "#generate" ).click(function() {
+            // console.log("puwit");
+            var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var passwordLength = 16;
+            var password = "";
+            for (var i = 0; i <= passwordLength; i++) {
+                var randomNumber = Math.floor(Math.random() * chars.length);
+                password += chars.substring(randomNumber, randomNumber +1);
+            }
+            $( "#password" ).val(password);
+        });
+
+        $( "#password" ).click(function() {
+            password.select();
+            navigator.clipboard.writeText(password.value);
+            // alert("Copied password: " + password.value);
+            if($('#password').val()){
+                $('#password').tooltip('toggle')
+            }
+            
+        });
+        
+    });
+   
 </script>
 @endsection
