@@ -33,6 +33,8 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']], function() {
 
     Route::resource('accounts', AccountController::class, ['as' => 'admin']);
     Route::resource('profile', ProfileController::class, ['as' => 'admin'])->only(['show', 'update']);
+
+    Route::get('list/accounts', [AccountController::class, 'getAccounts'])->name('admin.accounts.list');
 });
 
 Route::group(['prefix' => 'engr','middleware' => ['role:engr']], function() {

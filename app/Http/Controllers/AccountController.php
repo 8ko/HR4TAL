@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\Datatables\Datatables;
 use App\Models\User;
 use Auth;
 
@@ -104,5 +105,17 @@ class AccountController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAccounts()
+    {
+        $users = User::all();
+        return Datatables::of($users)
+                ->addColumn('action', function ($data) {
+                    return '<a href='.route(uth::user()->roles->first()->name.'.accounts.edit').' class="btn btn-info btn-sm">Edit</a>'.
+                            '<a href="#" class="btn btn-danger btn-sm mx-1">Delete</a>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 }
