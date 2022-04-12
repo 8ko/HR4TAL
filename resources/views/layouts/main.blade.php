@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex flex-column p-0">
         <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
             <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-business-time"></i></div>
-            <div class="sidebar-brand-text mx-3"><span>HR4TAL</span></div>
+            <div class="sidebar-brand-text mx-3"><span class="text text-lg">HR4TAL</span></div>
         </a>
         <hr class="sidebar-divider my-0">
         <ul class="navbar-nav text-light" id="accordionSidebar">
@@ -13,7 +13,7 @@
             <li class="nav-item"><a class="nav-link" href="{{route(Auth::user()->roles->first()->name . '.logs')}}"><i class="fas fa-table"></i><span>Time Logs</span></a></li>
             @endif
             @if (Auth::user()->hasRole('admin'))
-            <li class="nav-item"><a class="nav-link" href="{{route('admin.accounts.index')}}"><i class="fas fa-table"></i><span>Accounts</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{{route('admin.accounts.index')}}"><i class="fas fa-users"></i><span>Accounts</span></a></li>
             @endif
             <li class="nav-item"></li>
             <li class="nav-item"></li>

@@ -112,7 +112,7 @@ class AccountController extends Controller
         $users = User::all();
         return Datatables::of($users)
                 ->addColumn('action', function ($data) {
-                    return '<a href='.route(Auth::user()->roles->first()->name.'.accounts.edit', $data->employee_id).' class="btn btn-info btn-sm">Edit</a>'.
+                    return '<a href='.route(Auth::user()->roles->first()->name.'.accounts.edit', $data->employee_id).' class="btn btn-primary btn-sm">Edit</a>'.
                             '<a href='.route(Auth::user()->roles->first()->name.'.accounts.destroy', $data->employee_id).' class="btn btn-danger btn-sm mx-1">Delete</a>';
                 })
                 ->rawColumns(['action'])
