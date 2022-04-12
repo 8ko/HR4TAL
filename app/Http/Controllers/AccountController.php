@@ -64,12 +64,14 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($employee_id)
     {
+        $user = User::where('employee_id', $employee_id)->firstOrFail();
+
         if (Auth::user()->hasRole('admin')){
-            return view('admin.accounts.edit');
+            return view('admin.accounts.edit', compact('user'));
         } elseif(Auth::user()->hasRole('engr')){
-            return view('engr.accounts.edit');
+            return view('engr.accounts.edit', compact('user'));
         }
     }
 
