@@ -44,7 +44,7 @@
                                     <span class="d-none d-lg-inline me-2 text-gray-600 small">{{ Auth::user()->employee_id }} {{ Auth::user()->first_name }}</span>
                                     <img class="border rounded-circle img-profile" src="{{Auth::user()->avatar()}}"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                                        <a class="dropdown-item" href="{{route('hr.profile',Auth::user()->employee_id)}}">
+                                        <a class="dropdown-item" href="{{route(Auth::user()->roles->first()->name . '.profile',Auth::user()->employee_id)}}">
                                         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Profile</a><a class="dropdown-item" href="#">
                                             
                                         <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#">
