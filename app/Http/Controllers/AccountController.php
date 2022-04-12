@@ -102,9 +102,9 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($employee_id)
     {
-        //
+        return redirect()->back()->with('success','Account deleted.');
     }
 
     public function getAccounts()
@@ -112,8 +112,8 @@ class AccountController extends Controller
         $users = User::all();
         return Datatables::of($users)
                 ->addColumn('action', function ($data) {
-                    return '<a href='.route(uth::user()->roles->first()->name.'.accounts.edit').' class="btn btn-info btn-sm">Edit</a>'.
-                            '<a href="#" class="btn btn-danger btn-sm mx-1">Delete</a>';
+                    return '<a href='.route(Auth::user()->roles->first()->name.'.accounts.edit', $data->employee_id).' class="btn btn-info btn-sm">Edit</a>'.
+                            '<a href='.route(Auth::user()->roles->first()->name.'.accounts.destroy', $data->employee_id).' class="btn btn-danger btn-sm mx-1">Delete</a>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

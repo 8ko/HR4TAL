@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -14,9 +15,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable implements HasMedia
 {
-    use LaratrustUserTrait;
-    use HasApiTokens, HasFactory, Notifiable;
-    use InteractsWithMedia;
+    use LaratrustUserTrait, HasApiTokens, HasFactory, Notifiable, InteractsWithMedia, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
