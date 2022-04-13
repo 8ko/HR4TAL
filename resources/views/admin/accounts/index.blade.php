@@ -4,8 +4,9 @@
   <h3 class="text-dark mb-4">Accounts</h3>
   @include('layouts.flash-messages')
   <div class="card shadow">
-    <div class="card-header py-3">
+    <div class="card-header py-3 d-flex justify-content-between">
       <p class="text-primary m-0 fw-bold">Manage Accounts</p>
+      <a href="{{ route('admin.accounts.create') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> <strong>Create Account</strong></a>
     </div>
     <div class="card-body table-responsive">
       <table id="user-table" class="table table-hover table-striped">
