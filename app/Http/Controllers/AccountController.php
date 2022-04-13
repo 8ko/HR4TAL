@@ -123,16 +123,19 @@ class AccountController extends Controller
     {
         $users = User::withTrashed();
         return Datatables::of($users)
-                ->addColumn('action', function ($data) {
-                    $btn = '<a href='.route(Auth::user()->roles->first()->name.'.accounts.edit', $data->employee_id).' class="btn btn-primary btn-sm">Edit</a>';
+                ->addColumn('role', function($data) {
+                    return $data->roles->first()->display_name;
+                })
+                ->addColumn('action', function($data) {
                     if (empty($data->deleted_at)) {
-                        $btn .= '<a href='.route(Auth::user()->roles->first()->name.'.accounts.destroy', $data->employee_id).' class="btn btn-danger btn-sm mx-1">Delete</a>'.
-                                '<a class="btn btn-success btn-sm disabled">Restore</a>';
+                        return '<a href='.route(Auth::user()->roles->first()->name.'.accounts.edit', $data->employee_id).' class="btn btn-primary btn-sm">Edit</a>'.
+                                '<a href='.route(Auth::user()->roles->first()->name.'.accounts.destroy', $data->employee_id).' class="btn btn-danger btn-sm mx-1">Delete</a>'.
+                                '<a class="btn btn-success btn-sm text-white disabled">Restore</a>';
                     } else {
-                        $btn .= '<a class="btn btn-danger btn-sm mx-1 disabled">Delete</a>'.
-                                '<a href='.route(Auth::user()->roles->first()->name.'.accounts.restore', $data->employee_id).' class="btn btn-success btn-sm">Restore</a>';
+                        return '<a class="btn btn-primary btn-sm disabled">Edit</a>'.
+                                '<a class="btn btn-danger btn-sm mx-1 disabled">Delete</a>'.
+                                '<a href='.route(Auth::user()->roles->first()->name.'.accounts.restore', $data->employee_id).' class="btn btn-success btn-sm text-white">Restore</a>';
                     }
-                    return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
