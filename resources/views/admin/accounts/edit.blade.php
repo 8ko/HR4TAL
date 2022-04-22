@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+<div class="container-fluid">
 <div class="row justify-content-center">
     <div class="col-md-5">
     @include('layouts.flash-messages')
@@ -7,7 +8,6 @@
             <div class="card-header text-primary m-0 fw-bold">{{ __('Account Update') }}</div>
 
             <div class="card-body d-flex justify-content-center">
-            
                     {{ Form::model($user,['route' => ['admin.accounts.update',$user->employee_id]]) }}
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
@@ -16,7 +16,6 @@
                     </div>
                     <div class="row my-3">
                         <label for="user_level" class="col-md-4 col-form-label text-md-end">{{ __('User Level') }}</label>
-
                         <div class="col-md-6">
                             {{
                                 Form::select('role_name',array(
@@ -48,7 +47,6 @@
 
                         <div class="col-md-6">
                             {{ Form::text('first_name',null,['class'=>'form-control','id'=>'first_name','required']) }}
-
                             @error('first_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -112,44 +110,40 @@
         </div>
     </div>
 </div>
-
-
-
+</div>
+</div>
+</div>
 <script>
-    $( document ).ready(function() {
-        $( "#generate" ).click(function() {
-            var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var passwordLength = 12;
-            var password = "";
-            for (var i = 0; i <= passwordLength; i++) {
-                var randomNumber = Math.floor(Math.random() * chars.length);
-                password += chars.substring(randomNumber, randomNumber +1);
-            }
-            $( "#password" ).val(password);
-        });
-
-        $( "#password" ).click(function() {
-            password.select();
-            navigator.clipboard.writeText(password.value);
-            // alert("Copied password: " + password.value);
-            if($('#password').val()){
-                $('#password').tooltip('toggle')
-            }
-            
-        });
-
-        $( "#email" ).click(function() {
-            var org = $( "#domain").text();
-            email.select();
-            navigator.clipboard.writeText(email.value+org);
-            // alert("Copied password: " + password.value);
-            if($('#email').val()){
-                $('#email').tooltip('toggle')
-            }
-            
-        });
-        
+$( document ).ready(function() {
+    $( "#generate" ).click(function() {
+        var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var passwordLength = 12;
+        var password = "";
+        for (var i = 0; i <= passwordLength; i++) {
+            var randomNumber = Math.floor(Math.random() * chars.length);
+            password += chars.substring(randomNumber, randomNumber +1);
+        }
+        $( "#password" ).val(password);
     });
-   
+
+    $( "#password" ).click(function() {
+        password.select();
+        navigator.clipboard.writeText(password.value);
+        // alert("Copied password: " + password.value);
+        if($('#password').val()){
+            $('#password').tooltip('toggle')
+        }
+    });
+
+    $( "#email" ).click(function() {
+        var org = $( "#domain").text();
+        email.select();
+        navigator.clipboard.writeText(email.value+org);
+        // alert("Copied password: " + password.value);
+        if($('#email').val()){
+            $('#email').tooltip('toggle')
+        }
+    });
+});
 </script>
 @endsection

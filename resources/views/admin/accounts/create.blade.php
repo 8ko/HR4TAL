@@ -1,8 +1,9 @@
 @extends('layouts.main')
 @section('content')
+<div class="container-fluid">
 <div class="row justify-content-center">
     <div class="col-md-5">
-    @include('layouts.flash-messages')
+        @include('layouts.flash-messages')
         <div class="card">
             <div class="card-header text-primary m-0 fw-bold">{{ __('Account Creation') }}</div>
 
@@ -118,63 +119,57 @@
         </div>
     </div>
 </div>
-
-
-
+</div>
+</div>
+</div>
 <script>
-    $( document ).ready(function() {
-
-        const $tooltip = $('[data-toggle="tooltip"]');
-        $tooltip.tooltip({
+$( document ).ready(function() {
+    const $tooltip = $('[data-toggle="tooltip"]');
+    $tooltip.tooltip({
         html: true,
         trigger: 'click',
         animation: true,
         placement: 'top',
-        });
+    });
 
-        $( "#generate" ).click(function() {
-            // console.log("puwit");
-            var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var passwordLength = 12;
-            var password = "";
-            for (var i = 0; i <= passwordLength; i++) {
-                var randomNumber = Math.floor(Math.random() * chars.length);
-                password += chars.substring(randomNumber, randomNumber +1);
-            }
-            $( "#password" ).val(password);
-        });
+    $( "#generate" ).click(function() {
+        // console.log("puwit");
+        var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var passwordLength = 12;
+        var password = "";
+        for (var i = 0; i <= passwordLength; i++) {
+            var randomNumber = Math.floor(Math.random() * chars.length);
+            password += chars.substring(randomNumber, randomNumber +1);
+        }
+        $( "#password" ).val(password);
+    });
 
-        $( "#password" ).click(function(e) {
-            e.preventDefault();
-            password.select();
-            navigator.clipboard.writeText(password.value);
-            // alert("Copied password: " + password.value);
-            if($('#password').val()){
-                $('#password').tooltip('show');
-                setTimeout(function() {
-                    $('#password').tooltip('dispose');
-                }, 1000);
-            }
-            
-        });
-
-        $( "#email" ).click(function(e) {
-            e.preventDefault();
-            
-            var org = $( "#domain").text();
-            email.select();
-            navigator.clipboard.writeText(email.value+org);
-            if($('#email').val()){
-                
-                $('#email').tooltip('show');
-                setTimeout(function() {
-                    $('#email').tooltip('dispose');
-                }, 1000);
-            }
-            
-        });
+    $( "#password" ).click(function(e) {
+        e.preventDefault();
+        password.select();
+        navigator.clipboard.writeText(password.value);
+        // alert("Copied password: " + password.value);
+        if($('#password').val()){
+            $('#password').tooltip('show');
+            setTimeout(function() {
+                $('#password').tooltip('dispose');
+            }, 1000);
+        }
         
     });
-   
+
+    $( "#email" ).click(function(e) {
+        e.preventDefault();
+        var org = $( "#domain").text();
+        email.select();
+        navigator.clipboard.writeText(email.value+org);
+        if($('#email').val()){
+            $('#email').tooltip('show');
+            setTimeout(function() {
+                $('#email').tooltip('dispose');
+            }, 1000);
+        }
+    });
+});
 </script>
 @endsection
