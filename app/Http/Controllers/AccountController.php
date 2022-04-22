@@ -17,7 +17,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('admin.accounts.index');
+        return view(Auth::user()->roles->first()->name.'.accounts.index');
     }
 
     /**
@@ -27,7 +27,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        return view('admin.accounts.create');
+        return view(Auth::user()->roles->first()->name.'.accounts.create');
     }
 
     /**
@@ -72,12 +72,7 @@ class AccountController extends Controller
                     ->join('role_user', 'role_user.user_id', '=', 'users.id')
                     ->join('roles', 'role_user.role_id', '=', 'roles.id')
                     ->where('employee_id', $employee_id)->firstOrFail();
-
-        if (Auth::user()->hasRole('admin')){
-            return view('admin.accounts.edit', compact('user'));
-        } elseif(Auth::user()->hasRole('engr')){
-            return view('engr.accounts.edit', compact('user'));
-        }
+        return view(Auth::user()->roles->first()->name.'.accounts.edit', compact('user'));
     }
 
     /**

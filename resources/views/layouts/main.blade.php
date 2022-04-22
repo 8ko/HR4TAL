@@ -12,8 +12,8 @@
             @if (Auth::user()->hasRole(['admin','hr']))
             <li class="nav-item"><a class="nav-link" href="{{route(Auth::user()->roles->first()->name . '.logs')}}"><i class="fas fa-table"></i><span>Time Logs</span></a></li>
             @endif
-            @if (Auth::user()->hasRole('admin'))
-            <li class="nav-item"><a class="nav-link" href="{{route('admin.accounts.index')}}"><i class="fas fa-users"></i><span>Accounts</span></a></li>
+            @if (Auth::user()->hasRole(['admin','engr']))
+            <li class="nav-item"><a class="nav-link" href="{{route(Auth::user()->roles->first()->name . '.accounts.index')}}"><i class="fas fa-users"></i><span>Accounts</span></a></li>
             @endif
             <li class="nav-item"></li>
             <li class="nav-item"></li>

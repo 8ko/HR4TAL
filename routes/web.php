@@ -31,11 +31,10 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']], function() {
     Route::post('profile/avatar/upload/{employee_id}', [ProfileController::class, 'uploadAvatar'])->name('admin.profile.avatar.upload');
     Route::post('profile/comment/save/{employee_id}', [ProfileController::class, 'saveComment'])->name('admin.profile.comment.save');
 
+    Route::resource('profile', ProfileController::class, ['as' => 'admin'])->only(['show', 'update']);
     Route::resource('accounts', AccountController::class, ['as' => 'admin'])->except(['destroy']);
     Route::get('accounts/destroy/{employee_id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
     Route::get('accounts/restore/{employee_id}', [AccountController::class, 'restore'])->name('admin.accounts.restore');
-    Route::resource('profile', ProfileController::class, ['as' => 'admin'])->only(['show', 'update']);
-
     Route::get('list/accounts', [AccountController::class, 'getAccounts'])->name('admin.accounts.list');
 });
 
@@ -45,8 +44,11 @@ Route::group(['prefix' => 'engr','middleware' => ['role:engr']], function() {
 
     Route::post('requirement/store/{employee_id}', [RequirementController::class, 'store'])->name('engr.requirement.store');
     
-    Route::resource('accounts', AccountController::class, ['as' => 'engr']);
     Route::resource('profile', ProfileController::class, ['as' => 'engr'])->only(['show']);
+    Route::resource('accounts', AccountController::class, ['as' => 'engr'])->except(['destroy']);
+    Route::get('accounts/destroy/{employee_id}', [AccountController::class, 'destroy'])->name('engr.accounts.destroy');
+    Route::get('accounts/restore/{employee_id}', [AccountController::class, 'restore'])->name('engr.accounts.restore');
+    Route::get('list/accounts', [AccountController::class, 'getAccounts'])->name('engr.accounts.list');
 });
 
 Route::group(['prefix' => 'hr','middleware' => ['role:hr']], function() {
